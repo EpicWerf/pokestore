@@ -65,64 +65,42 @@ const Home: React.FC = () => {
 	}
 
 	return (
-		<IonPage id="home-page">
+		<IonPage id="home-page" className="ion-text-center">
 			<IonHeader className="ion-text-center">
 				<IonToolbar>
 					<IonTitle>Pokestore: Group 2-7</IonTitle>
 				</IonToolbar>
 			</IonHeader>
 			<IonContent fullscreen>
-				<IonRefresher slot="fixed" onIonRefresh={refresh}>
-					<IonRefresherContent></IonRefresherContent>
-				</IonRefresher>
-
-				<IonHeader collapse="condense">
-					<IonToolbar>
-						<IonTitle size="large">Pokestore: Group 2-7</IonTitle>
-					</IonToolbar>
-				</IonHeader>
-				<IonItem className="ion-text-center">
+				<IonCard>
+					<IonRefresher slot="fixed" onIonRefresh={refresh}>
+						<IonRefresherContent></IonRefresherContent>
+					</IonRefresher>
+					<IonHeader collapse="condense">
+						<IonToolbar>
+							<IonTitle size="large">Pokestore: Group 2-7</IonTitle>
+						</IonToolbar>
+					</IonHeader>
 					<IonImg
-						className="logoImg ion-text-center"
+						className="logoImg"
 						src="https://vignette.wikia.nocookie.net/vsbattles/images/1/14/Logo_Pokemon.png/revision/latest?cb=20160807031552"
 					/>
-				</IonItem>
-
-				<IonGrid>
-					<IonRow>
-						<IonCol size="3" size-sm>
-							{/* array.map will go through all elements in an array and make a card out of them */}
+					<IonGrid>
+						<IonRow>
 							{allPokemon.map((pokemon) => (
-								<IonCard className="pokecard">
-									<img
-										className="pokecardImg"
-										src={pokemon.imgUrl}
-										alt={`Card with ${pokemon.name}`}
-									/>
-
-									<IonCardHeader>
-										<IonCardTitle>{pokemon.name}</IonCardTitle>
-									</IonCardHeader>
-									{/* <IonCardContent>
-									Keep close to Nature's heart... and break clear away, once in awhile,
-									and climb a mountain or spend a week in the woods. Wash your spirit
-									clean.
-								</IonCardContent> */}
-								</IonCard>
+								<IonCol size="3" size-md>
+									{/* array.map will go through all elements in an array and make a card out of them */}
+									<IonCard className="pokecard">
+										<img src={pokemon.imgUrl} alt={`Card with ${pokemon.name}`} />
+										<IonCardHeader>
+											<IonCardTitle>{pokemon.name}</IonCardTitle>
+										</IonCardHeader>
+									</IonCard>
+								</IonCol>
 							))}
-						</IonCol>
-						{/* <IonCol size="3" size-md>
-							<Pokecard pokemon={allPokemon} />
-						</IonCol> */}
-						{/* 
-						<IonCol size="3" size-sm>
-						<Pokecard pokemon={allPokemon} />
-						</IonCol>
-						<IonCol size="3" size-sm>
-						<Pokecard pokemon={allPokemon} />
-					</IonCol> */}
-					</IonRow>
-				</IonGrid>
+						</IonRow>
+					</IonGrid>
+				</IonCard>
 			</IonContent>
 		</IonPage>
 	)
