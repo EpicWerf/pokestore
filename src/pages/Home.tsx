@@ -81,14 +81,20 @@ const Home: React.FC = () => {
 							<IonTitle size="large">Pokestore: Group 2-7</IonTitle>
 						</IonToolbar>
 					</IonHeader>
-					<IonImg
-						className="logoImg"
-						src="https://vignette.wikia.nocookie.net/vsbattles/images/1/14/Logo_Pokemon.png/revision/latest?cb=20160807031552"
-					/>
 					<IonGrid>
-						<IonRow>
+						<IonRow className="flex">
+							<IonImg
+								className="logoImg"
+								src="https://vignette.wikia.nocookie.net/vsbattles/images/1/14/Logo_Pokemon.png/revision/latest?cb=20160807031552"
+							/>
+						</IonRow>
+					</IonGrid>
+
+					{/* <IonGrid style={{height: '100%'}}> */}
+					<IonGrid>
+						<IonRow className="flex">
 							{allPokemon.map((pokemon) => (
-								<IonCol size="3" size-md>
+								<IonCol size="3" size-lg>
 									{/* array.map will go through all elements in an array and make a card out of them */}
 									<IonCard className="pokecard">
 										<img src={pokemon.imgUrl} alt={`Card with ${pokemon.name}`} />

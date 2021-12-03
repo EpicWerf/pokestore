@@ -1,9 +1,15 @@
 .logoImg {
-	max-width: 200px;
-    position: “relative”;
+	max-width: 500px;
+    text-align: center;
 
 }
 
 .pokecard {
 	max-width: 300px;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
