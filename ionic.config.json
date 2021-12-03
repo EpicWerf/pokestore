@@ -1,0 +1,8 @@
+{
+  "name": "pokestore",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "id": "d10fcd63"
+}
