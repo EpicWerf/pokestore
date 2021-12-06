@@ -8,18 +8,27 @@ import {
 	IonContent,
 	IonGrid,
 	IonHeader,
+	IonIcon,
 	IonImg,
+	IonItem,
+	IonLabel,
 	IonPage,
 	IonRefresher,
 	IonRefresherContent,
 	IonRow,
 	IonTitle,
+	IonToggle,
 	IonToolbar,
 } from "@ionic/react"
 import "./Home.css"
 import { getPokemons } from "../data/pokemonData"
+import { moonOutline } from "ionicons/icons"
 
-const Home: React.FC = () => {
+const Home: React.FC<{
+	darkMode: boolean
+	setDarkMode: Function
+}> = (props) => {
+	const { darkMode, setDarkMode } = props
 	const [allPokemon, setAllPokemon] = useState<Pokemon[]>([])
 
 	const fetchPokemon = async () => {
@@ -39,9 +48,14 @@ const Home: React.FC = () => {
 
 	return (
 		<IonPage id="home-page" className="ion-text-center">
-			<IonHeader className="ion-text-center">
+			<IonHeader>
 				<IonToolbar>
-					<IonTitle>Pokestore: Group 2-7</IonTitle>
+					<IonTitle style={{ marginLeft: "200px" }}>Pokestore: Group 2-7</IonTitle>
+					<IonItem slot="end">
+						<IonIcon slot="start" icon={moonOutline}></IonIcon>
+						<IonLabel>Dark Mode</IonLabel>
+						<IonToggle checked={darkMode} onClick={() => setDarkMode(!darkMode)} />
+					</IonItem>
 				</IonToolbar>
 			</IonHeader>
 			<IonContent fullscreen>
