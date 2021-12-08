@@ -1,7 +1,15 @@
-import { useEffect, useState } from "react"
+import {
+	ReactChild,
+	ReactFragment,
+	ReactPortal,
+	useEffect,
+	useState,
+} from "react"
 import { Pokemon } from "../types/Pokemon.types"
 import {
+	IonButton,
 	IonCard,
+	IonCardContent,
 	IonCardHeader,
 	IonCardTitle,
 	IonCol,
@@ -23,6 +31,7 @@ import {
 import "./Home.css"
 import { getPokemons } from "../data/pokemonData"
 import { moonOutline } from "ionicons/icons"
+import { log } from "console"
 
 const Home: React.FC<{
 	darkMode: boolean
@@ -30,10 +39,47 @@ const Home: React.FC<{
 }> = (props) => {
 	const { darkMode, setDarkMode } = props
 	const [allPokemon, setAllPokemon] = useState<Pokemon[]>([])
+	const [filtersList, setFiltersList] = useState<any>([])
+	const [filteredDonuts, setFilteredDonuts] = useState<any>([])
 
 	const fetchPokemon = async () => {
 		const response = getPokemons()
+
 		setAllPokemon(response)
+		setFilteredDonuts(response)
+
+		//Set the filters to the an array of donut types
+		let donutTypes = response.map((donut) => donut.pokemonType)
+		donutTypes = donutTypes.filter(
+			(donutType, index, self) => self.indexOf(donutType) === index
+		)
+
+		setFiltersList([...donutTypes])
+	}
+
+	//this function is called when the user clicks on a filter
+	const handleFilterChange = (event: any) => {
+		event.preventDefault()
+
+		//get the value of the filter
+		console.log(event)
+		console.log(event.target.innerHTML)
+		const selectedOption = event.target.innerHTML
+
+		//filter the donuts based on the selected option
+		const copy = allPokemon.filter(
+			(donut) => donut.pokemonType === selectedOption
+		)
+
+		//set the filtered array to the filtered copy of donuts
+		//that way "donuts" remains the full list of donuts
+
+		setFilteredDonuts([...copy])
+	}
+
+	//this function is called when the user clicks the "All" filter
+	const resetFilters = () => {
+		setFilteredDonuts([...allPokemon])
 	}
 
 	useEffect(() => {
@@ -77,16 +123,60 @@ const Home: React.FC<{
 							/>
 						</IonRow>
 						<IonRow className="flex">
-							{allPokemon.map((pokemon) => (
-								<IonCol size="3" size-lg>
-									<IonCard className="pokecard">
-										<img src={pokemon.imgUrl} alt={`Card with ${pokemon.name}`} />
-										<IonCardHeader>
-											<IonCardTitle>{pokemon.name}</IonCardTitle>
-										</IonCardHeader>
-									</IonCard>
-								</IonCol>
-							))}
+							<div style={{ marginBottom: "10px", marginTop: "10px" }}>
+								<IonButton
+									type="button"
+									className="btn btn-success"
+									onClick={resetFilters}
+								>
+									All
+								</IonButton>
+								{filtersList.map((filter: any) => (
+									<IonButton
+										type="button"
+										onClick={handleFilterChange}
+										key={filter}
+										style={{ marginLeft: "10px" }}
+										defaultValue={filter}
+									>
+										{filter}
+									</IonButton>
+								))}
+							</div>
+						</IonRow>
+						<IonRow className="flex">
+							{filteredDonuts.map(
+								(pokemon: {
+									pokemonImgUrl: string | undefined
+									pokemonName:
+										| boolean
+										| ReactChild
+										| ReactFragment
+										| ReactPortal
+										| null
+										| undefined
+									pokemonType:
+										| boolean
+										| ReactChild
+										| ReactFragment
+										| ReactPortal
+										| null
+										| undefined
+								}) => (
+									<IonCol size="3" size-lg>
+										<IonCard className="pokecard">
+											<img
+												src={pokemon.pokemonImgUrl}
+												alt={`Card with ${pokemon.pokemonName}`}
+											/>
+											<IonCardHeader>
+												<IonCardTitle>{pokemon.pokemonName}</IonCardTitle>
+												<IonCardContent>{pokemon.pokemonType}</IonCardContent>
+											</IonCardHeader>
+										</IonCard>
+									</IonCol>
+								)
+							)}
 						</IonRow>
 					</IonGrid>
 				</IonCard>

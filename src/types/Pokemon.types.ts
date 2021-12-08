@@ -1,5 +1,6 @@
 export interface Pokemon {
-	key: string
-	name: string
-	imgUrl: string
+	pokemonName: string
+	pokemonId: number
+	pokemonImgUrl: string
+	pokemonType: string
 }
