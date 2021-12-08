@@ -53,6 +53,7 @@ const Home: React.FC<{
 		donutTypes = donutTypes.filter(
 			(donutType, index, self) => self.indexOf(donutType) === index
 		)
+		//howdy
 
 		setFiltersList([...donutTypes])
 	}
