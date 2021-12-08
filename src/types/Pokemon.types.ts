@@ -3,3 +3,9 @@ export interface Pokemon {
 	name: string
 	imgUrl: string
 }
+
+export interface DynamoPokemon {
+	pokemonId: number;
+	pokemonName: string;
+	pokemonImgUrl: string;
+}
